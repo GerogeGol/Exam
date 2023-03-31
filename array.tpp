@@ -38,6 +38,7 @@ Array<T>::Array(Array&& other)
     m_size = other.m_size;
 
     other.m_array = nullptr;
+    other.m_size = 0;
 }
 
 template <typename T>
@@ -98,7 +99,7 @@ template <typename T>
 bool Array<T>::operator==(const Array<T>& other) const
 {
     if (m_size != other.m_size) {
-        throw std::runtime_error("Sizes different");
+        return false;
     }
 
     for (size_t i = 0; i < m_size; i++) {
@@ -114,7 +115,7 @@ template <typename T>
 bool Array<T>::operator!=(const Array& other) const
 {
     if (m_size != other.m_size) {
-        throw std::runtime_error("Sizes different");
+        return false;
     }
 
     return !(*this == other);
@@ -128,7 +129,7 @@ size_t Array<T>::size() const
 template <typename T>
 size_t Array<T>::empty() const
 {
-    reutnr m_size == 0;
+    return m_size == 0;
 }
 
 template <typename T>
@@ -154,7 +155,7 @@ T& Array<T>::operator[](size_t index)
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Array<T>& array)
 {
-    for (int i = 0; i < array.m_size; i++) {
+    for (size_t i = 0; i < array.m_size; i++) {
         out << array.m_array[i] << ' ';
     }
     out << std::endl;
